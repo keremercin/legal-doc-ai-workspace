@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+streamlit
+pydantic
+python-multipart
+sentence-transformers
+faiss-cpu
+pdfplumber
+pypdf
+pillow
+numpy
+pandas
+docling
+paddleocr
+requests
