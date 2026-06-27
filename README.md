@@ -28,11 +28,11 @@ This repository is designed to showcase exactly that direction.
 
 ### Workspace Dashboard
 
-![Workspace Dashboard](docs/screenshots/workspace-dashboard.png)
+![Workspace Dashboard](docs/screenshots/workspace-dashboard-clean.png)
 
 ### Multi-Document Q&A
 
-![Multi-Document Q&A](docs/screenshots/multi-doc-qa.png)
+![Multi-Document Q&A](docs/screenshots/multi-doc-qa-clean.png)
 
 ## Current Product Scope
 
