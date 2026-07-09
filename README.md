@@ -1,8 +1,8 @@
-# Legal Doc AI Pipeline
+# Legal Doc AI Workspace
 
 Open-source, local-first document intelligence pipeline for legal workflows, extraction, and grounded Q&A.
 
-This project was built as a portfolio-grade product demo that feels closer to an internal legal operations tool than a toy OCR example.
+This project is a local-first workspace reference implementation for contract and document operations. It is designed to feel like an internal tool rather than a single-file OCR demo.
 
 ## What It Does
 
@@ -181,4 +181,4 @@ The current build has been manually validated for:
 
 This project is best positioned as:
 
-`Open-source legal document intelligence pipeline with multi-document extraction and grounded Q&A`
+`Local-first legal document workspace with multi-document extraction and grounded Q&A`
