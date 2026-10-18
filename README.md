@@ -1,12 +1,12 @@
 # Legal Doc AI Workspace
 
-Open-source, local-first document intelligence pipeline for legal workflows, extraction, and grounded Q&A.
+Open-source local document-processing demo with heuristic extraction, lexical retrieval, and source excerpts.
 
 This project is a local-first workspace reference implementation for contract and document operations. It is designed to feel like an internal tool rather than a single-file OCR demo.
 
 ## What It Does
 
-- Upload multiple PDF or image documents into a shared workspace
+- Upload multiple PDF or image documents (up to 10 MiB each) into a local workspace
 - Parse documents into machine-readable text
 - Extract legal metadata and key structured signals
 - Surface obligations, dates, parties, and summaries
@@ -76,19 +76,22 @@ The first release is focused on legal and contract-heavy workflows, with room to
 
 ## Parsing Strategy
 
-The parsing layer is intentionally defensive:
+The parsing layer handles each PDF page independently:
 
-- PDF parsing tries `Docling` first
-- if needed, it falls back to `pdfplumber`
+- text-layer pages are read with `pdfplumber`
+- blank/scanned pages are sent to Docling one page at a time, then to local OCR if needed
+- if a page still cannot be extracted, upload stops with an explicit extraction error; the error text is never indexed as document content
 - image parsing is structured to use `Docling` and `PaddleOCR`
-- the app degrades gracefully if heavy OCR dependencies are unavailable
+- upload names are reduced to a safe basename and stored under generated local names
+- workspace JSON updates are atomic and file-locked; `/reset` clears the searchable index but preserves uploaded source files
+- citation `rank_score` is a normalized lexical heuristic for ordering, not a calibrated confidence percentage
 
 This makes the demo more stable in local environments while keeping the architecture extensible.
 
 ## Project Structure
 
 ```text
-legal-doc-ai-pipeline/
+legal-doc-ai-workspace/
   app/
     api/            # FastAPI routes
     core/           # shared config
@@ -125,7 +128,7 @@ Start the backend:
 Start the UI:
 
 ```bash
-.venv\Scripts\python.exe -m streamlit run .\ui\app.py --server.port 8501
+.venv\Scripts\python.exe -m streamlit run .\ui\app.py --server.address 127.0.0.1 --server.port 8501
 ```
 
 Open:
@@ -148,30 +151,29 @@ The generated workspace includes:
 - an amendment
 - an NDA
 
-## Validation Performed
+## Automated Regression Tests
 
-The current build has been manually validated for:
+The current checkout suite has **9 passing tests** covering:
 
-- backend startup
-- UI startup
-- multi-document upload
-- document type extraction
-- dates extraction
-- obligations extraction
-- workspace Q&A
-- multi-citation responses
-- selected-document detail flow in the UI
+- OCR failure stops ingestion with an explicit error
+- mixed text/scanned PDF page extraction
+- citation document/page source metadata
+- safe upload filenames and size limits
+- reset clears the index while preserving uploaded files
+- concurrent JSON updates and escaped HTML presentation
+
+These tests do not validate live OCR quality or a browser deployment.
 
 ## Known Gaps
 
-- page numbers are not yet fully carried through chunk-level citations
+- citations carry page-level source metadata but do not highlight exact text coordinates
 - semantic ranking is still basic and can be improved
-- image OCR is wired architecturally, but needs a dedicated image-based validation pass
+- image OCR integrations need a dedicated live image validation pass
 - the current demo uses generated documents rather than public legal datasets
 
 ## Next Improvements
 
-- real page reference propagation
+- exact excerpt highlighting
 - stronger retrieval ranking
 - richer citation highlighting
 - better document switching UX
@@ -181,4 +183,4 @@ The current build has been manually validated for:
 
 This project is best positioned as:
 
-`Local-first legal document workspace with multi-document extraction and grounded Q&A`
+`Local-first document-processing demo with heuristic extraction and lexical source search`

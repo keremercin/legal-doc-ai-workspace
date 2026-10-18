@@ -85,14 +85,14 @@ def answer_question(question: str, documents: list[ProcessedDocument]) -> QueryR
         if key in seen_pairs:
             continue
         seen_pairs.add(key)
-        normalized_confidence = min(0.98, max(0.45, score / max(top_score, 1.0)))
+        normalized_rank_score = min(1.0, max(0.0, score / max(top_score, 1.0)))
         matches.append(
             Citation(
                 document_id=document.document_id,
                 filename=document.filename,
                 page=page,
                 excerpt=excerpt,
-                confidence=round(normalized_confidence, 2),
+                rank_score=round(normalized_rank_score, 2),
             )
         )
         snippets.append(f"[{document.extracted_fields.document_type}] {excerpt}")

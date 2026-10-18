@@ -1,6 +1,8 @@
 import requests
 import streamlit as st
 
+from app.services.presentation import escape_html
+
 
 API_BASE = "http://127.0.0.1:8000"
 
@@ -424,8 +426,8 @@ with left:
             st.markdown(
                 f"""
                 <div class="{classes}">
-                    <div class="file-title">{item['filename']}</div>
-                    <div class="file-meta">{fields["document_type"]} · {len(item.get("chunks", []))} chunks</div>
+                    <div class="file-title">{escape_html(item['filename'])}</div>
+                    <div class="file-meta">{escape_html(fields["document_type"])} · {len(item.get("chunks", []))} chunks</div>
                     <div class="status-row">
                         <span class="status-pill">Parsed</span>
                         <span class="status-pill">{len(fields["dates"])} dates</span>
@@ -458,8 +460,8 @@ with center:
         st.markdown(
             f"""
             <div class="extract-card">
-                <div class="extract-heading">{selected['filename']}</div>
-                <div class="extract-type">{fields["document_type"] or "Unknown"}</div>
+                <div class="extract-heading">{escape_html(selected['filename'])}</div>
+                <div class="extract-type">{escape_html(fields["document_type"] or "Unknown")}</div>
             """,
             unsafe_allow_html=True,
         )
@@ -474,7 +476,7 @@ with center:
         st.write("**Parties**")
         if fields["parties"]:
             st.markdown(
-                "".join(f'<span class="chip">{party}</span>' for party in fields["parties"]),
+                "".join(f'<span class="chip">{escape_html(party)}</span>' for party in fields["parties"]),
                 unsafe_allow_html=True,
             )
         else:
@@ -483,7 +485,7 @@ with center:
         st.write("**Dates**")
         if fields["dates"]:
             st.markdown(
-                "".join(f'<span class="chip">{date}</span>' for date in fields["dates"]),
+                "".join(f'<span class="chip">{escape_html(date)}</span>' for date in fields["dates"]),
                 unsafe_allow_html=True,
             )
         else:
@@ -527,20 +529,20 @@ with right:
         st.write("**Citations**")
         if result["citations"]:
             for citation in result["citations"]:
-                confidence = citation.get("confidence")
-                confidence_text = f"{int(confidence * 100)}% match" if confidence else "Source excerpt"
+                rank_score = citation.get("rank_score")
+                score_text = f"Heuristic rank score: {float(rank_score):.2f}" if rank_score is not None else "Source excerpt"
                 page_text = f"Page {citation['page']}" if citation.get("page") else "Page reference pending"
                 st.markdown(
                     f"""
                     <div class="citation-card">
                         <div class="citation-top">
                             <div>
-                                <div class="file-title">{citation["filename"]}</div>
+                                <div class="file-title">{escape_html(citation["filename"])}</div>
                                 <div class="citation-meta">{page_text}</div>
                             </div>
-                            <div class="confidence-pill">{confidence_text}</div>
+                            <div class="confidence-pill">{escape_html(score_text)}</div>
                         </div>
-                        <div style="margin-top: 0.45rem; color: #223229; line-height: 1.5;">{citation["excerpt"]}</div>
+                        <div style="margin-top: 0.45rem; color: #223229; line-height: 1.5;">{escape_html(citation["excerpt"])}</div>
                     </div>
                     """,
                     unsafe_allow_html=True,

@@ -35,7 +35,7 @@ class Citation(BaseModel):
     filename: str
     page: int | None = None
     excerpt: str
-    confidence: float | None = None
+    rank_score: float | None = None
 
 
 class QueryResponse(BaseModel):

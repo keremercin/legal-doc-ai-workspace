@@ -1,33 +1,28 @@
-# Upwork Portfolio Copy
+# Legal Document Workspace Demo Description
 
 ## Portfolio Title
 
-Legal Document AI Pipeline with OCR, Multi-Document Extraction and Grounded Q&A
+Local Document Processing Prototype with Heuristic Retrieval and Source Excerpts
 
 ## Short Description
 
-Built a local-first legal document intelligence tool that ingests multiple files, extracts structured fields, identifies obligations, and answers cross-document questions with grounded citations.
+Built a local-first prototype that ingests PDFs/images, extracts text and heuristic fields, ranks chunks lexically, and returns excerpts with document/page source metadata. Its answers are not validated legal interpretations.
 
-## Long Case Study
+## Scope
 
 ### Overview
 
-This project is a product-style legal document AI workspace designed for contract-heavy teams that need more than a simple summarizer.
+This is a portfolio demo, not a customer case study or deployed legal tool.
 
-The system supports multi-document ingestion, structured extraction, obligation discovery, and grounded Q&A across a shared workspace.
+The system supports multi-document ingestion, heuristic field extraction, obligation sentence matching, and lexical Q&A over a shared local workspace.
 
 ### Problem
 
-Most document AI demos stop at single-file uploads and generic summaries. In real legal and operations workflows, teams need to:
-
-- work across multiple related documents
-- identify dates, parties, and obligations quickly
-- compare documents such as agreements and amendments
-- ask questions and see traceable evidence instead of opaque answers
+The demo illustrates how uploaded documents can be indexed locally and how matching excerpts are returned with source details.
 
 ### Solution
 
-I built a local-first document intelligence pipeline with:
+The code includes:
 
 - multi-document workspace ingestion
 - legal-oriented metadata extraction
@@ -45,27 +40,17 @@ I built a local-first document intelligence pipeline with:
 - Docling integration layer
 - PaddleOCR integration layer
 
-### Outcome
-
-The result is a strong portfolio-ready prototype that demonstrates how AI can support legal review workflows in a more realistic way than a basic chatbot or OCR script.
+### Demonstrated Behavior
 
 It shows:
 
-- multi-document reasoning
+- lexical chunk ranking across uploaded documents
 - legal-focused extraction
-- grounded answer generation
+- source-linked excerpts
 - a clean internal-tool style interface
 
-## Problem / Solution / Result Version
+No customer use, time savings, legal accuracy, AI quality rate, or business outcome has been measured.
 
-### Problem
+## Short Description
 
-Legal teams often work with related documents such as agreements, amendments, and NDAs, but most lightweight AI tools only handle one file at a time.
-
-### Solution
-
-I built a local-first legal document workspace that extracts key fields, identifies obligations, and answers cross-document questions using grounded source excerpts.
-
-### Result
-
-The demo shows a realistic internal tool workflow with multiple uploaded legal files, structured extraction, and citation-backed Q&A in one interface.
+The local demo displays multiple uploaded files, heuristic extracted fields, and source excerpts ranked by lexical overlap. It does not verify legal claims or represent client work.
